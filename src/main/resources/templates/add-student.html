@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h2>Add Student</h2>
+<form action="/students/add" method="post">
+
+    Name: <input type="text" name="name" /><br><br>
+    Age: <input type="number" name="age" /><br><br>
+    Department:
+    <select name="departmentId">
+        <option th:each="dep : ${departments}"
+                th:value="${dep.id}"
+                th:text="${dep.name}">
+        </option>
+    </select><br><br>
+    Course:
+    <select name="courseId">
+        <option th:each="course : ${courses}"
+                th:value="${course.id}"
+                th:text="${course.title}">
+        </option>
+    </select><br><br>
+    <button type="submit">Save</button>
+</form>
+
+</body>
+</html>
