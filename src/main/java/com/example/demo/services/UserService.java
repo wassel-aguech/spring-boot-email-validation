@@ -6,11 +6,13 @@ import com.example.demo.dto.RegisterRequest;
 import com.example.demo.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -32,7 +34,8 @@ public class UserService {
     public void register(RegisterRequest request) {
         // 1. Verifier si l'email existe deja
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email deja utilise");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email deja enregistre");
+            // ✅ 409 CONFLICT au lieu de RuntimeException
         }
         // 2. Generer le token
         String token = UUID.randomUUID().toString();

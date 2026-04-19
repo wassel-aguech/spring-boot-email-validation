@@ -25,7 +25,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // Champs pour la validation email
     private String verificationToken;
     private LocalDateTime tokenExpiry;
     private Boolean  enabled = false;
